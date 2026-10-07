@@ -1,5 +1,6 @@
 import '../styles.css'
-import {MapMarker} from '@primeicons/react/map-marker'
+import Cartao from "./Cartao"
+import Creditos from "./Creditos"
 const App = () => {
     const estiloSubtitulo = {margin: 'auto', fontSize: 16, color:'blue', textAlign:'center'}
     const obterAno = () => {
@@ -12,11 +13,17 @@ const App = () => {
     return (
         <div>
             <h1 className='titulo'>
-                <MapMarker style={{color:'red'}}/>
+                <i className="pi pi-map-marker" style={{ color: 'red'}}></i>
                 RolêRadar
             </h1>
             <p style={estiloSubtitulo}>Descubra o que existe perto de você</p>
-            <p>RolêRadar © {obterAno()}</p>
+            <Creditos/>
+            <Cartao cabecalho = 'Teste'>    
+                <p>Conteúdo do cartão</p>
+            </Cartao>
+            <p>RolêRadar © {obterAno()}</p> 
+            
+           
         </div>
         
     )

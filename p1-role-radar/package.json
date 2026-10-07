@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@primeicons/react": "^8.0.2",
+    "@primereact/core": "^11.2.0",
     "@primereact/ui": "^11.2.0",
     "@primeuix/themes": "^3.0.1",
     "primeflex": "^4.0.0",
+    "primeicons": "^8.0.2",
+    "primereact": "^11.2.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
