@@ -5,7 +5,7 @@ import Loading from "./Loading"
 import MeuPonto from './MeuPonto'
 import React, { Component } from 'react'
 import geoapifyClient from '../utils/geoapifyClient'
-import {Button} from '@primereact/ui/button'
+import Busca from "./Busca"
 
 export default class App extends Component {
     state = {
@@ -78,6 +78,7 @@ export default class App extends Component {
                 !this.state.latitude ?
                     <Loading mensagem='Aguardando permissão de localização...'/>
                 :
+                <>  
                     <Cartao cabecalho='Você está aqui'>
                         <MeuPonto
                             latitude = {this.state.latitude}
@@ -86,13 +87,13 @@ export default class App extends Component {
                             onAtualizar = {this.obterLocalizacao}
                         />
                     </Cartao>
-                    
+                    <Cartao cabecalho="O que você procura?">
+                        <Busca onBuscaRealizada={this.onBuscaRealizada}/>
+                    </Cartao>
+                </>           
                 }
-            <Button rounded style={{backgroundColor: 'lightgrey', borderColor:'purple', color:'purple'}}onClick={()=>this.onBuscaRealizada('catering.cafe', 1000)}>
-                Testar busca
-
-            </Button>
             </div>
+            
             <p>RolêRadar © {obterAno()}</p> 
             
            
