@@ -6,13 +6,15 @@ import MeuPonto from './MeuPonto'
 import React, { Component } from 'react'
 import geoapifyClient from '../utils/geoapifyClient'
 import Busca from "./Busca"
+import ListaLugares from "./ListaLugares"
 
 export default class App extends Component {
     state = {
         latitude: null,
         longitude: null,
         horarioLocalizacao: null,
-        mensagemDeErro: null
+        mensagemDeErro: null,
+        lugares: null
     }
 
     obterLocalizacao=()=>{
@@ -48,7 +50,9 @@ export default class App extends Component {
             }
         })
         .then((result) => {
-            console.log(result.data.features)
+            this.setState({
+                lugares: result.data.features
+            })
 
         })
         
@@ -63,15 +67,17 @@ export default class App extends Component {
         return anoAtual
     }
     return (
-      <div>
+      <div >
             <h1 className='titulo'>
                 <i className="pi pi-map-marker" style={{ color: 'red'}}></i>
                 RolêRadar
             </h1>
             <p style={estiloSubtitulo}>Descubra o que existe perto de você</p>
             <Creditos/>
-            <div>
-                {
+
+            <div className='grid'>
+                <div className='col-12 md:col-6'>
+                    {
                 (this.state.mensagemDeErro) ? 
                     <p>{this.state.mensagemDeErro}</p> 
                 :
@@ -92,6 +98,23 @@ export default class App extends Component {
                     </Cartao>
                 </>           
                 }
+                </div>
+                <div className='col-12 md:col-6'>
+                    {
+                        this.state.lugares === null ?
+                            null
+                        :
+                        this.state.lugares.length === 0 ?
+                            <p>Nenhum lugar encontrado. Tente aumentar o raio.</p>
+                        :
+                            <ListaLugares lugares={this.state.lugares}/>
+
+
+
+                    }
+
+                </div>
+                
             </div>
             
             <p>RolêRadar © {obterAno()}</p> 

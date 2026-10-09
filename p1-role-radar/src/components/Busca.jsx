@@ -41,7 +41,7 @@ export default class Busca extends Component {
     render() {
         return (
             <form onSubmit={this.onFormSubmit}>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-column">
                     {this.categorias.map((categoria) =>
                         <Button
                             key={categoria.chave}
