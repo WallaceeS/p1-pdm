@@ -4,6 +4,8 @@ import Cartao from "./Cartao"
 import Loading from "./Loading"
 import MeuPonto from './MeuPonto'
 import React, { Component } from 'react'
+import geoapifyClient from '../utils/geoapifyClient'
+import {Button} from '@primereact/ui/button'
 
 export default class App extends Component {
     state = {
@@ -31,9 +33,28 @@ export default class App extends Component {
             }
         )
     }
+
     componentDidMount(){
         this.obterLocalizacao()
     }
+
+    onBuscaRealizada=(categoria,raio)=>{
+        geoapifyClient.get('/places',{
+            params: {
+                categories: categoria,
+                filter: `circle:${this.state.longitude},${this.state.latitude},${raio}`,
+                bias: `proximity:${this.state.longitude},${this.state.latitude}`,
+                limit: 20
+            }
+        })
+        .then((result) => {
+            console.log(result.data.features)
+
+        })
+        
+    }
+
+
   render() {
     const estiloSubtitulo = {margin: 'auto', fontSize: 16, color:'blue', textAlign:'center'}
     const obterAno = () => {
@@ -65,8 +86,12 @@ export default class App extends Component {
                             onAtualizar = {this.obterLocalizacao}
                         />
                     </Cartao>
-
+                    
                 }
+            <Button rounded style={{backgroundColor: 'lightgrey', borderColor:'purple', color:'purple'}}onClick={()=>this.onBuscaRealizada('catering.cafe', 1000)}>
+                Testar busca
+
+            </Button>
             </div>
             <p>RolêRadar © {obterAno()}</p> 
             
